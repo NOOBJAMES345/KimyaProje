@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asit ve Baz Projesi</title>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #f7f9fa;
             color: #333;
         }
@@ -19,7 +19,6 @@
             padding: 15px;
         }
 
-        /* Başlık Kısmı */
         header {
             background-color: #e2e8f0;
             padding: 30px 15px;
@@ -28,12 +27,9 @@
             margin-bottom: 20px;
         }
 
-        h1 {
-            margin: 0 0 10px 0;
-            color: #222;
-        }
+        header h1 { margin: 0 0 8px 0; color: #222; }
+        header p { color: #555; margin: 0; }
 
-        /* Bilgi Kartları */
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -41,448 +37,611 @@
             margin-bottom: 30px;
         }
 
-        /* Mobil Uyumlu Grid */
         @media (max-width: 600px) {
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
+            .info-grid { grid-template-columns: 1fr; }
         }
 
         .card {
             background: #fff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.06);
             border-top: 5px solid;
-            box-sizing: border-box;
         }
 
         .card.acid { border-color: #ef4444; }
         .card.base { border-color: #3b82f6; }
-
-        .card h2 {
-            margin-top: 0;
-        }
-        
+        .card h2 { margin-top: 0; margin-bottom: 12px; font-size: 1.1rem; }
         .card.acid h2 { color: #ef4444; }
         .card.base h2 { color: #3b82f6; }
+        .card ul { padding-left: 20px; }
+        .card li { margin-bottom: 8px; line-height: 1.5; font-size: 0.95rem; }
 
-        .card ul {
-            padding-left: 20px;
-            margin: 0;
-        }
-
-        .card li {
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
-        /* Deney Bölümü */
         .experiment {
             background: #fff;
             padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            text-align: center;
-            box-sizing: border-box;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.06);
         }
+
+        .experiment > h2 { margin-bottom: 6px; }
+        .experiment > p { color: #555; margin-bottom: 20px; font-size: 0.95rem; }
 
         .flex-lab {
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin-top: 20px;
+            align-items: flex-start;
+        }
+
+        @media (max-width: 650px) {
+            .flex-lab { flex-direction: column; align-items: center; }
+        }
+
+        /* Beher */
+        .beaker-wrap {
+            display: flex;
+            flex-direction: column;
             align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
         }
 
-        /* Mobil Uyumlu Deney Bölümü */
-        @media (max-width: 600px) {
-            .flex-lab {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
-        /* Beher Çizimi */
         .beaker-box {
-            width: 140px;
-            height: 180px;
+            width: 130px;
+            height: 170px;
             border: 4px solid #ccc;
             border-top: none;
             border-radius: 0 0 15px 15px;
             position: relative;
             background: #fdfdfd;
-            margin: 0 auto;
         }
 
         .liquid {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 50%;
+            height: 55%;
             background-color: #10b981;
             transition: background-color 0.3s;
             border-radius: 0 0 10px 10px;
         }
 
-        .ph-text {
-            position: absolute;
-            top: 20px;
-            left: 0;
-            width: 100%;
-            text-align: center;
+        .ph-badge {
             font-weight: bold;
-            font-size: 1.2rem;
-            z-index: 2;
+            font-size: 1.1rem;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 20px;
+            padding: 4px 14px;
+        }
+
+        .liquid-name {
+            font-size: 0.82rem;
+            color: #666;
+            text-align: center;
+            max-width: 130px;
         }
 
         /* Kontroller */
         .controls {
             flex: 1;
-            max-width: 400px;
-            text-align: left;
+            max-width: 430px;
             width: 100%;
         }
 
-        @media (max-width: 600px) {
-            .controls {
-                text-align: center;
-                max-width: 100%;
-            }
-            .beaker-box {
-                margin-top: 20px;
-            }
-        }
-
-        .slider-box {
-            margin-bottom: 20px;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            margin-top: 10px;
-            box-sizing: border-box;
-        }
-
-        .buttons-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .preset-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 5px;
-            margin-bottom: 20px;
-        }
-        
-        @media (max-width: 600px) {
-            .preset-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .btn-preset {
-            padding: 8px 5px;
-            border: 1px solid #ccc;
-            background: #fff;
-            border-radius: 5px;
-            cursor: pointer;
+        .section-label {
+            font-weight: bold;
             font-size: 0.9rem;
-            transition: 0.2s;
+            margin-bottom: 8px;
+            display: block;
+            color: #444;
         }
 
-        .btn-preset:hover {
-            background: #f1f5f9;
+        /* Kategori sekmeleri */
+        .category-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
         }
 
-        .btn-mat {
-            padding: 10px;
-            border: 1px solid #ccc;
-            background: #fff;
-            border-radius: 5px;
+        .tab-btn {
+            padding: 5px 12px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            border-radius: 20px;
+            font-size: 0.85rem;
             cursor: pointer;
-            font-size: 1rem;
-            transition: 0.2s;
+            color: #555;
+            transition: all 0.15s;
         }
 
-        .btn-mat:hover {
-            background: #f1f5f9;
-        }
+        .tab-btn:hover { background: #e2e8f0; }
 
-        .btn-mat.active {
-            background: #cbd5e1;
-            border-color: #94a3b8;
+        .tab-btn.active {
+            background: #334155;
+            color: #fff;
+            border-color: #334155;
             font-weight: bold;
         }
 
-        .action-btn {
+        /* Sıvı ızgarası */
+        .liquid-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-bottom: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+
+        .liq-btn {
+            padding: 7px 10px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            text-align: left;
+            line-height: 1.4;
+            transition: all 0.15s;
+            color: #333;
+        }
+
+        .liq-btn:hover { background: #f1f5f9; border-color: #94a3b8; }
+
+        .liq-btn.active {
+            background: #e0f2fe;
+            border-color: #38bdf8;
+            font-weight: bold;
+        }
+
+        .liq-ph {
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* pH slider */
+        .slider-box { margin-bottom: 15px; }
+
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .slider-row input[type="range"] { flex: 1; }
+
+        .slider-row span {
+            font-weight: bold;
+            font-size: 0.95rem;
+            min-width: 28px;
+            text-align: right;
+        }
+
+        /* pH skalası */
+        .ph-scale {
+            display: flex;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 6px;
+            margin-bottom: 3px;
+        }
+
+        .ph-scale div { flex: 1; }
+
+        .ph-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: #888;
+            margin-bottom: 14px;
+        }
+
+        /* Yüzey butonları */
+        .mat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7px;
+            margin-bottom: 15px;
+        }
+
+        .mat-btn {
+            padding: 9px 10px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.15s;
+            color: #333;
+        }
+
+        .mat-btn:hover { background: #f1f5f9; border-color: #94a3b8; }
+
+        .mat-btn.active {
+            background: #fff7ed;
+            border-color: #fb923c;
+            font-weight: bold;
+        }
+
+        /* Dök butonu */
+        .pour-btn {
+            width: 100%;
+            padding: 12px;
             background: #10b981;
             color: #fff;
             border: none;
-            padding: 12px 25px;
-            font-size: 1.1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
+            border-radius: 6px;
+            font-size: 1rem;
             font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
-        .action-btn:disabled {
-            background: #ccc;
+        .pour-btn:hover:not(:disabled) { background: #059669; }
+
+        .pour-btn:disabled {
+            background: #cbd5e1;
             cursor: not-allowed;
         }
 
+        /* Sonuç kutusu */
         .result-box {
-            margin-top: 25px;
-            padding: 15px;
+            margin-top: 20px;
+            padding: 14px 16px;
             background: #f1f5f9;
-            border-radius: 5px;
-            font-weight: bold;
-            min-height: 50px;
-            border: 1px dashed #ccc;
+            border-radius: 6px;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            border: 1px dashed #cbd5e1;
+            min-height: 54px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            color: #444;
         }
 
-        /* Dökme Animasyonu İçin Damla */
-        .drop-container {
-            position: relative;
+        .result-box.reaction {
+            background: #fef2f2;
+            border-color: #fca5a5;
+            color: #b91c1c;
         }
+
+        .result-box.slow {
+            background: #fffbeb;
+            border-color: #fcd34d;
+            color: #92400e;
+        }
+
+        .result-box.none {
+            background: #f0fdf4;
+            border-color: #86efac;
+            color: #166534;
+        }
+
+        /* Damla animasyonu */
+        .drop-area { position: relative; display: inline-block; }
 
         .drop {
             position: absolute;
-            width: 15px;
-            height: 15px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            background-color: transparent;
             left: 50%;
             transform: translateX(-50%);
-            top: -20px;
+            top: -18px;
             opacity: 0;
             z-index: 5;
         }
 
         @keyframes fall {
-            0% { top: -20px; opacity: 1; }
-            100% { top: 60px; opacity: 0; }
+            0%   { top: -18px; opacity: 1; }
+            100% { top: 55px;  opacity: 0; }
         }
-
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Asitler ve Bazlar</h1>
-        <p>9. Sınıf Kimya Projesi</p>
-    </header>
+<header>
+    <h1>Asitler ve Bazlar</h1>
+    <p>9. Sınıf Kimya Projesi</p>
+</header>
 
-    <div class="container">
-        <!-- Bilgiler -->
-        <div class="info-grid">
-            <div class="card acid">
-                <h2>Asitler</h2>
-                <ul>
-                    <li>Tatları ekşidir (Limon gibi).</li>
-                    <li>Suda çözündüklerinde H⁺ iyonu verirler.</li>
-                    <li>Turnusol kağıdını kırmızıya çevirirler.</li>
-                    <li>pH değerleri 0 ile 7 arasındadır.</li>
-                    <li>Aktif metaller ve mermer gibi yüzeyleri aşındırırlar.</li>
-                </ul>
-            </div>
-            <div class="card base">
-                <h2>Bazlar</h2>
-                <ul>
-                    <li>Tatları acıdır, ele kayganlık verirler (Sabun gibi).</li>
-                    <li>Suda çözündüklerinde OH⁻ iyonu verirler.</li>
-                    <li>Turnusol kağıdını maviye çevirirler.</li>
-                    <li>pH değerleri 7 ile 14 arasındadır.</li>
-                    <li>Cam ve porselen yüzeyleri zamanla matlaştırırlar.</li>
-                </ul>
-            </div>
+<div class="container">
+
+    <!-- Bilgi Kartları -->
+    <div class="info-grid">
+        <div class="card acid">
+            <h2>Asitler</h2>
+            <ul>
+                <li>Tatları ekşidir (limon gibi).</li>
+                <li>Suda çözündüklerinde H⁺ iyonu verirler.</li>
+                <li>Turnusol kağıdını kırmızıya çevirirler.</li>
+                <li>pH değerleri 0 ile 7 arasındadır.</li>
+                <li>Aktif metaller ve mermer gibi yüzeyleri aşındırırlar.</li>
+            </ul>
         </div>
-
-        <!-- Deney -->
-        <div class="experiment">
-            <h2>Deney Bölümü</h2>
-            <p>Sıvının pH değerini ayarla, bir yüzey seç ve ne olacağını test et.</p>
-
-            <div class="flex-lab">
-                
-                <div class="drop-container">
-                    <div class="beaker-box">
-                        <div class="ph-text" id="phText">pH: 7</div>
-                        <div class="liquid" id="liquid"></div>
-                    </div>
-                    <!-- Sıvı animasyonu bu divde olacak -->
-                    <div class="drop" id="drop"></div>
-                </div>
-
-                <div class="controls">
-                    <div style="margin-bottom: 10px;"><strong>Hazır Sıvı Seç:</strong></div>
-                    <div class="preset-grid">
-                        <button class="btn-preset" data-ph="1">Tuz Ruhu</button>
-                        <button class="btn-preset" data-ph="3">Limon Suyu</button>
-                        <button class="btn-preset" data-ph="7">Saf Su</button>
-                        <button class="btn-preset" data-ph="13">Çamaşır Suyu</button>
-                    </div>
-
-                    <div class="slider-box">
-                        <label for="phSlider"><strong>Veya pH Değerini Ayarla (0 - 14)</strong></label>
-                        <input type="range" id="phSlider" min="0" max="14" step="1" value="7">
-                    </div>
-
-                    <div style="margin-bottom: 10px;"><strong>Yüzey Seç:</strong></div>
-                    <div class="buttons-grid">
-                        <button class="btn-mat" data-mat="mermer">Mermer (CaCO₃)</button>
-                        <button class="btn-mat" data-mat="metal">Metal (Çinko)</button>
-                        <button class="btn-mat" data-mat="cam">Cam</button>
-                        <button class="btn-mat" data-mat="plastik">Plastik</button>
-                    </div>
-
-                    <button class="action-btn" id="testBtn" disabled>Sıvıyı Dök</button>
-                </div>
-            </div>
-
-            <!-- Sonuç -->
-            <div class="result-box" id="resultArea">
-                Henüz bir test yapılmadı. Yüzey seçip dök butonuna basın.
-            </div>
+        <div class="card base">
+            <h2>Bazlar</h2>
+            <ul>
+                <li>Tatları acıdır, ele kayganlık verirler (sabun gibi).</li>
+                <li>Suda çözündüklerinde OH⁻ iyonu verirler.</li>
+                <li>Turnusol kağıdını maviye çevirirler.</li>
+                <li>pH değerleri 7 ile 14 arasındadır.</li>
+                <li>Cam ve porselen yüzeyleri zamanla matlaştırırlar.</li>
+            </ul>
         </div>
     </div>
 
-    <script>
-        const slider = document.getElementById('phSlider');
-        const phText = document.getElementById('phText');
-        const liquid = document.getElementById('liquid');
-        const buttons = document.querySelectorAll('.btn-mat');
-        const presetButtons = document.querySelectorAll('.btn-preset');
-        const testBtn = document.getElementById('testBtn');
-        const resultArea = document.getElementById('resultArea');
-        const drop = document.getElementById('drop');
+    <!-- Deney Bölümü -->
+    <div class="experiment">
+        <h2>Deney Bölümü</h2>
+        <p>Bir sıvı seç veya pH değerini manuel ayarla, yüzey seç ve ne olacağını test et.</p>
 
-        let ph = 7;
-        let selectedMat = null;
+        <div class="flex-lab">
 
-        // pH değerine göre renk belirleme
-        function updateColor(val) {
-            if (val <= 2) return '#dc2626'; // koyu kırmızı
-            if (val <= 4) return '#f97316'; // turuncu
-            if (val < 7) return '#facc15'; // sarı
-            if (val == 7) return '#10b981'; // yeşil
-            if (val <= 10) return '#38bdf8'; // açık mavi
-            if (val <= 12) return '#3b82f6'; // mavi
-            return '#8b5cf6'; // mor
+            <!-- Beher -->
+            <div class="beaker-wrap">
+                <div class="drop-area">
+                    <div class="beaker-box">
+                        <div class="liquid" id="liquid"></div>
+                    </div>
+                    <div class="drop" id="drop"></div>
+                </div>
+                <div class="ph-badge" id="phBadge">pH: 7</div>
+                <div class="liquid-name" id="liqName">Saf su</div>
+            </div>
+
+            <!-- Kontroller -->
+            <div class="controls">
+
+                <!-- Kategori Sekmeleri -->
+                <span class="section-label">Sıvı kategorisi seç:</span>
+                <div class="category-tabs" id="catTabs">
+                    <button class="tab-btn active" data-cat="all">Tümü</button>
+                    <button class="tab-btn" data-cat="acid">Asitler</button>
+                    <button class="tab-btn" data-cat="base">Bazlar</button>
+                    <button class="tab-btn" data-cat="neutral">Nötr</button>
+                    <button class="tab-btn" data-cat="home">Evde kullanılan</button>
+                </div>
+
+                <!-- Sıvı Listesi -->
+                <div class="liquid-grid" id="liqGrid"></div>
+
+                <!-- Slider -->
+                <div class="slider-box">
+                    <span class="section-label">Veya pH değerini manuel ayarla (0–14):</span>
+                    <div class="slider-row">
+                        <input type="range" id="phSlider" min="0" max="14" step="1" value="7">
+                        <span id="sliderVal">7</span>
+                    </div>
+                    <div class="ph-scale" id="phScale"></div>
+                    <div class="ph-labels">
+                        <span>0 (güçlü asit)</span>
+                        <span>7 (nötr)</span>
+                        <span>14 (güçlü baz)</span>
+                    </div>
+                </div>
+
+                <!-- Yüzey Seçimi -->
+                <span class="section-label">Yüzey seç:</span>
+                <div class="mat-grid" id="matGrid"></div>
+
+                <!-- Dök Butonu -->
+                <button class="pour-btn" id="pourBtn" disabled>Sıvıyı Dök</button>
+
+            </div>
+        </div>
+
+        <!-- Sonuç -->
+        <div class="result-box" id="resultBox">
+            Henüz test yapılmadı. Bir yüzey seçip "Sıvıyı Dök" butonuna basın.
+        </div>
+    </div>
+
+</div><!-- /container -->
+
+<script>
+    /* ─── Veri ─── */
+    const LIQUIDS = [
+        { id:'hcl',     name:'Tuz ruhu (HCl)',          ph:1,  cat:'acid',    home:false },
+        { id:'lemon',   name:'Limon suyu',               ph:2,  cat:'acid',    home:true  },
+        { id:'vinegar', name:'Sirke',                    ph:3,  cat:'acid',    home:true  },
+        { id:'cola',    name:'Kola',                     ph:3,  cat:'acid',    home:true  },
+        { id:'coffee',  name:'Kahve',                    ph:5,  cat:'acid',    home:true  },
+        { id:'descaler',name:'Kireç sökücü',             ph:2,  cat:'acid',    home:true  },
+        { id:'degreaser',name:'Yağ çözücü (asitli)',     ph:3,  cat:'acid',    home:true  },
+        { id:'water',   name:'Saf su',                   ph:7,  cat:'neutral', home:false },
+        { id:'milk',    name:'Süt',                      ph:7,  cat:'neutral', home:true  },
+        { id:'bsoda',   name:'Kabartma tozu (suda)',     ph:8,  cat:'base',    home:true  },
+        { id:'wsoda',   name:'Çamaşır sodası',           ph:11, cat:'base',    home:true  },
+        { id:'bleach',  name:'Çamaşır suyu',             ph:12, cat:'base',    home:true  },
+        { id:'drain',   name:'Lavabo açıcı (NaOH)',      ph:13, cat:'base',    home:true  },
+        { id:'ammonia', name:'Amonyaklı temizleyici',    ph:11, cat:'base',    home:true  },
+        { id:'naoh',    name:'Kostik soda (NaOH)',       ph:14, cat:'base',    home:false },
+    ];
+
+    const MATERIALS = [
+        { id:'mermer',  label:'Mermer (CaCO₃)'  },
+        { id:'metal',   label:'Metal (çinko)'   },
+        { id:'cam',     label:'Cam'              },
+        { id:'plastik', label:'Plastik'          },
+        { id:'kumas',   label:'Kumaş (pamuk)'   },
+        { id:'deri',    label:'Deri'             },
+    ];
+
+    const REACTIONS = {
+        acid: {
+            mermer:   { type:'reaction', msg:'Tepkime var! Asit mermeri (CaCO₃) aşındırdı; CO₂ gazı ve tuz açığa çıktı. Tarihi yapılardaki yüzey aşınması bu reaksiyondan kaynaklanır.' },
+            metal:    { type:'reaction', msg:'Tepkime var! Asit metal çinko ile reaksiyona girdi; yanıcı H₂ gazı ve çinko tuzu (ZnCl₂) oluştu.' },
+            cam:      { type:'none',     msg:'Tepkime yok. Asitler genellikle camla tepkime vermez; bu yüzden asitler cam kaplarda saklanabilir (HF hariç).' },
+            plastik:  { type:'none',     msg:'Tepkime yok. Çoğu asit plastik kaplara zarar vermez. Seyreltik asitler plastik kaplarda güvenle saklanır.' },
+            kumas:    { type:'reaction', msg:'Tepkime var! Güçlü asitler pamuk lifleri (selüloz) parçalayarak kumaşı yakar ve delikler açar.' },
+            deri:     { type:'reaction', msg:'Tepkime var! Asit deri proteinlerini (keratin ve kollajen) tahrip eder; kimyasal yanığa neden olur. Güvenlik ekipmanı şarttır!' },
+        },
+        base: {
+            mermer:   { type:'none',     msg:'Tepkime yok. Bazlar mermer (CaCO₃) ile doğrudan tepkime vermez. Mermeri asit aşındırır, baz aşındırmaz.' },
+            metal:    { type:'slow',     msg:'Yavaş / zayıf tepkime. Bazlar çoğu metali aşındırmaz; ancak çinko ve alüminyum güçlü bazlarla tepkime verebilir, H₂ gazı açığa çıkabilir.' },
+            cam:      { type:'slow',     msg:'Yavaş tepkime! Güçlü bazlar zamanla camın SiO₂ yapısını matlaştırır ve çizer. Uzun süreli temasa izin verilmemelidir.' },
+            plastik:  { type:'none',     msg:'Tepkime yok. Bazlar plastik kaplarda güvenle saklanabilir. Seyreltik bazlar için polietilen kaplar uygundur.' },
+            kumas:    { type:'slow',     msg:'Dikkat! Güçlü bazlar pamuklu kumaşı uzun süre temas edince sarartır ve zayıflatır. Seyreltik bazlar çamaşır deterjanı olarak kullanılır.' },
+            deri:     { type:'reaction', msg:'Tepkime var! Bazlar deri proteinlerini sabunlaştırarak (saponifikasyon) tahrip eder. Alkali yanıklar aside göre daha derin ve tehlikelidir.' },
+        },
+        neutral: {
+            mermer:   { type:'none', msg:'Tepkime yok. Nötr sıvı yalnızca yüzeyi ıslatır.' },
+            metal:    { type:'none', msg:'Tepkime yok. Nötr sıvı metalle tepkime vermez.' },
+            cam:      { type:'none', msg:'Tepkime yok. Nötr sıvı cama zarar vermez.' },
+            plastik:  { type:'none', msg:'Tepkime yok. Nötr sıvı plastiğe zarar vermez.' },
+            kumas:    { type:'none', msg:'Tepkime yok. Nötr sıvı kumaşa kimyasal zarar vermez.' },
+            deri:     { type:'none', msg:'Tepkime yok. Nötr sıvı deriyi tahriş etmez.' },
         }
+    };
 
-        // Slider kaydırıldığında çalışır
-        slider.addEventListener('input', (e) => {
-            ph = parseInt(e.target.value);
-            phText.innerText = `pH: ${ph}`;
-            liquid.style.backgroundColor = updateColor(ph);
-            resetResult();
+    /* ─── pH renk paleti ─── */
+    const PH_COLORS = [
+        '#dc2626','#ef4444','#f97316','#fb923c','#facc15',
+        '#a3e635','#10b981','#34d399','#38bdf8','#60a5fa',
+        '#818cf8','#a78bfa','#c084fc','#e879f9','#d946ef'
+    ];
+
+    function phColor(v) {
+        return PH_COLORS[Math.min(14, Math.max(0, v))];
+    }
+
+    /* ─── Durum ─── */
+    let currentPh = 7;
+    let currentLiqName = 'Saf su';
+    let currentMat = null;
+    let currentCat = 'all';
+
+    /* ─── DOM referansları ─── */
+    const liqGrid   = document.getElementById('liqGrid');
+    const matGrid   = document.getElementById('matGrid');
+    const liquid    = document.getElementById('liquid');
+    const phBadge   = document.getElementById('phBadge');
+    const liqName   = document.getElementById('liqName');
+    const slider    = document.getElementById('phSlider');
+    const sliderVal = document.getElementById('sliderVal');
+    const pourBtn   = document.getElementById('pourBtn');
+    const resultBox = document.getElementById('resultBox');
+    const drop      = document.getElementById('drop');
+    const phScale   = document.getElementById('phScale');
+
+    /* ─── pH skalası çizimi ─── */
+    function buildScale() {
+        for (let i = 0; i <= 14; i++) {
+            const d = document.createElement('div');
+            d.style.background = phColor(i);
+            phScale.appendChild(d);
+        }
+    }
+
+    /* ─── Sıvı listesi ─── */
+    function renderLiquids() {
+        liqGrid.innerHTML = '';
+        const list = LIQUIDS.filter(l => {
+            if (currentCat === 'all')  return true;
+            if (currentCat === 'home') return l.home;
+            return l.cat === currentCat;
         });
-
-        // Hazır sıvı butonlarına tıklanınca çalışır
-        presetButtons.forEach(btn => {
+        list.forEach(l => {
+            const btn = document.createElement('button');
+            btn.className = 'liq-btn';
+            btn.innerHTML = `<div>${l.name}</div><div class="liq-ph" style="color:${phColor(l.ph)}">pH: ${l.ph}</div>`;
             btn.addEventListener('click', () => {
-                ph = parseInt(btn.getAttribute('data-ph'));
-                slider.value = ph; // sliderı da senkronize et
-                phText.innerText = `pH: ${ph}`;
-                liquid.style.backgroundColor = updateColor(ph);
-                resetResult();
-            });
-        });
-
-        // Yüzey butonlarına tıklanınca çalışır
-        buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Önce hepsinden active sınıfını sil
-                buttons.forEach(b => b.classList.remove('active'));
-                // Tıklanana active ekle
+                document.querySelectorAll('.liq-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
-                selectedMat = btn.getAttribute('data-mat');
-                testBtn.disabled = false; // Butonu aktif yap
+                currentPh = l.ph;
+                currentLiqName = l.name;
+                slider.value = l.ph;
+                updateLiquid();
                 resetResult();
             });
+            liqGrid.appendChild(btn);
         });
+    }
 
-        function resetResult() {
-            resultArea.innerHTML = "Seçim yapıldı, sıvı dökmek için butona basın.";
-            resultArea.style.color = "#333";
-            resultArea.style.borderColor = "#ccc";
-            resultArea.style.backgroundColor = "#f1f5f9";
-        }
-
-        // Test butonuna basıldığında çalışır
-        testBtn.addEventListener('click', () => {
-            testBtn.disabled = true; // Tekrar basılmasın diye kilitle
-            resultArea.innerHTML = "Sıvı dökülüyor...";
-            
-            // Damla animasyonunu çalıştır
-            drop.style.backgroundColor = updateColor(ph);
-            drop.style.animation = 'none';
-            void drop.offsetWidth; // Sayfayı yenilemeye zorla
-            drop.style.animation = 'fall 1s forwards';
-
-            // 1 saniye sonra sonucu göster
-            setTimeout(() => {
-                showResult();
-                testBtn.disabled = false;
-            }, 1000);
+    /* ─── Yüzey butonları ─── */
+    function renderMaterials() {
+        MATERIALS.forEach(m => {
+            const btn = document.createElement('button');
+            btn.className = 'mat-btn';
+            btn.textContent = m.label;
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.mat-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentMat = m.id;
+                pourBtn.disabled = false;
+                resetResult();
+            });
+            matGrid.appendChild(btn);
         });
+    }
 
-        // Tepkime mantığını hesaplayan fonksiyon
-        function showResult() {
-            let msg = "";
-            let isNeutral = (ph === 7);
-            let isAcid = (ph < 7);
-            
-            if (isNeutral) {
-                msg = "Tepkime yok. Sıvı nötr olduğu için sadece yüzey ıslandı.";
-            } else if (isAcid) {
-                if (selectedMat === 'mermer') {
-                    msg = "Tepkime var! Asit mermeri aşındırdı ve CO₂ gazı açığa çıktı.";
-                } else if (selectedMat === 'metal') {
-                    msg = "Tepkime var! Asit metalle reaksiyona girdi ve yanıcı H₂ gazı çıktı.";
-                } else if (selectedMat === 'cam') {
-                    msg = "Tepkime yok. Asitler cam kaplarda saklanabilir.";
-                } else if (selectedMat === 'plastik') {
-                    msg = "Tepkime yok. Asit plastiğe zarar vermez.";
-                }
-            } else { // Baz
-                if (selectedMat === 'mermer') {
-                    msg = "Tepkime yok. Bazlar mermerle tepkime vermez.";
-                } else if (selectedMat === 'metal') {
-                    msg = "Tepkime yok. Asitler gibi metali aşındırmazlar (özel bazı metaller hariç).";
-                } else if (selectedMat === 'cam') {
-                    msg = "Yavaş tepkime! Bazlar zamanla camı matlaştırır.";
-                } else if (selectedMat === 'plastik') {
-                    msg = "Tepkime yok. Bazlar plastik kaplarda güvenle saklanabilir.";
-                }
-            }
+    /* ─── Beher güncelle ─── */
+    function updateLiquid() {
+        liquid.style.backgroundColor = phColor(currentPh);
+        phBadge.textContent = `pH: ${currentPh}`;
+        liqName.textContent = currentLiqName;
+        sliderVal.textContent = currentPh;
+    }
 
-            resultArea.innerHTML = msg;
-            
-            // Renklendirmeler
-            if (msg.includes("Tepkime var")) {
-                resultArea.style.borderColor = "#ef4444";
-                resultArea.style.backgroundColor = "#fef2f2";
-                resultArea.style.color = "#b91c1c";
-            } else if (msg.includes("Yavaş tepkime") || msg.includes("özel bazı")) {
-                resultArea.style.borderColor = "#f59e0b";
-                resultArea.style.backgroundColor = "#fffbeb";
-                resultArea.style.color = "#b45309";
-            } else {
-                resultArea.style.borderColor = "#10b981";
-                resultArea.style.backgroundColor = "#f0fdf4";
-                resultArea.style.color = "#047857";
-            }
-        }
-    </script>
+    /* ─── Sonuç sıfırla ─── */
+    function resetResult() {
+        resultBox.className = 'result-box';
+        resultBox.textContent = 'Seçim yapıldı. "Sıvıyı Dök" butonuna basın.';
+    }
+
+    /* ─── Kategori sekmeleri ─── */
+    document.getElementById('catTabs').addEventListener('click', e => {
+        const btn = e.target.closest('.tab-btn');
+        if (!btn) return;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCat = btn.dataset.cat;
+        renderLiquids();
+    });
+
+    /* ─── Slider ─── */
+    slider.addEventListener('input', () => {
+        currentPh = parseInt(slider.value);
+        currentLiqName = `Manuel pH ${currentPh}`;
+        document.querySelectorAll('.liq-btn').forEach(b => b.classList.remove('active'));
+        updateLiquid();
+        resetResult();
+    });
+
+    /* ─── Dök butonu ─── */
+    pourBtn.addEventListener('click', () => {
+        pourBtn.disabled = true;
+        resultBox.className = 'result-box';
+        resultBox.textContent = 'Sıvı dökülüyor...';
+
+        // Damla animasyonu
+        drop.style.backgroundColor = phColor(currentPh);
+        drop.style.animation = 'none';
+        void drop.offsetWidth;
+        drop.style.animation = 'fall 0.9s forwards';
+
+        setTimeout(() => {
+            const group = currentPh < 7 ? 'acid' : currentPh > 7 ? 'base' : 'neutral';
+            const rx = REACTIONS[group][currentMat];
+            resultBox.textContent = rx.msg;
+            resultBox.className = 'result-box ' + (rx.type === 'reaction' ? 'reaction' : rx.type === 'slow' ? 'slow' : 'none');
+            pourBtn.disabled = false;
+        }, 900);
+    });
+
+    /* ─── Başlat ─── */
+    buildScale();
+    renderLiquids();
+    renderMaterials();
+    updateLiquid();
+</script>
 </body>
 </html>
